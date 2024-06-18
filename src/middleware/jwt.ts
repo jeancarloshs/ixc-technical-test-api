@@ -11,7 +11,7 @@ class AuthMiddleware {
     // private readonly SECRET: string = process.env.SECRET || 'I8.NY6&i*4RV';
     
     public sign(payload: any): string {
-        return jwt.sign(payload, SECRET, { expiresIn: '1h' });
+        return jwt.sign(payload, SECRET, { expiresIn: '24h' });
     };
 
     public verifyJWT(req: AuthenticatedRequest, res: Response, next: NextFunction) {
