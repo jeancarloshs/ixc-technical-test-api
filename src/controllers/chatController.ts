@@ -12,13 +12,20 @@ interface IPostMessage {
 
 class ChatController {
   static getMessages = async (req: Request, res: Response) => {
-    const messageID = req.params.messageID;
+    const { user1ID, user2ID } = req.params;
     try {
-      const messages = await chatModel.find({ _id: new mongoose.Types.ObjectId(messageID) });
-
-      // const messages = await chatModel.find();
+      const messages = await chatModel.find({
+        $or: [
+          { sendToID: new mongoose.Types.ObjectId(user1ID), receivedID: new mongoose.Types.ObjectId(user2ID) },
+          { sendToID: new mongoose.Types.ObjectId(user2ID), receivedID: new mongoose.Types.ObjectId(user1ID) }
+        ]
+      });
       console.log(messages);
-      res.status(200).send(messages);
+      if (messages.length > 0) {
+        res.status(200).send(messages);
+      } else {
+        res.status(404).send({ message: "No messages found between these users" });
+      }
     } catch (error) {
       console.error("Error getting messages", error);
       res.status(500).send({ message: "Error getting messages" });
