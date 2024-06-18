@@ -1,16 +1,20 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-export interface IMessage {
+export interface IMessage extends Document {
+  name: string;
+  email: string;
+  receivedID: mongoose.Types.ObjectId;
+  sendToID: mongoose.Types.ObjectId;
   text: string;
   timestamp: Date;
 }
 
-export interface IChat {
-  id: string;
-  receveidID: string;
-  sendToID: string;
+export interface IChat extends Document {
   name: string;
-  messages: Array<string>;
+  email: string;
+  receivedID: mongoose.Types.ObjectId;
+  sendToID: mongoose.Types.ObjectId;
+  messages: IMessage[];
   created_at: Date;
 }
 
@@ -18,11 +22,29 @@ class ChatModel extends mongoose.Model<IChat> {
   id!: string;
   name!: string;
   email!: string;
-  messages!: Array<string>;
+  messages!: IMessage[];
   created_at!: Date;
 }
 
 const messageSchema: Schema<IMessage> = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  receivedID: {
+    type: Schema.Types.ObjectId,
+    ref: 'users',
+    required: true
+  },
+  sendToID: {
+    type: Schema.Types.ObjectId,
+    ref: 'users',
+    required: true
+  },
   text: {
     type: String,
     required: true
@@ -31,16 +53,16 @@ const messageSchema: Schema<IMessage> = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-})
+});
 
-const chatSchema = new mongoose.Schema({
+const chatSchema: Schema<IChat> = new mongoose.Schema({
   name: {
     type: String,
     required: true
   },
   email: {
     type: String,
-    require: true
+    required: true
   },
   receivedID: {
     type: Schema.Types.ObjectId,
@@ -55,13 +77,16 @@ const chatSchema = new mongoose.Schema({
   messages: {
     type: [messageSchema],
     required: true,
+    default: []
   },
   created_at: {
     type: Date,
     default: Date.now
   }
-})
+});
 
 chatSchema.loadClass(ChatModel);
-const chatModel = mongoose.model<IChat>('chat', chatSchema);
+
+const chatModel = mongoose.model<IChat>('Chat', chatSchema);
+
 export default chatModel;
