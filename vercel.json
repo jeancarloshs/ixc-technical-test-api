@@ -2,13 +2,6 @@
     "name": "api-chat-ixc",
     "version": 2,
     "public": true,
-    "builds": [
-      {
-        "src": "dist/*.js",
-        "use": "@vercel/node",
-        "config": { "includeFiles": ["dist/**"] }
-      }
-    ],
     "routes": [
       {
         "src": "/(.*)",
