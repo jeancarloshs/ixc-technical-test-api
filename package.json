@@ -2,7 +2,6 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon",
-    "build": "tsc",
   },
   "dependencies": {
     "cors": "^2.8.5",
