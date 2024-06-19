@@ -1,4 +1,8 @@
 {
+  "name": "ixc-technical-test-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/server.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon",
