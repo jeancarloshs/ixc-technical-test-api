@@ -1,11 +1,16 @@
 {
   "name": "ixc-technical-test-api",
   "version": "1.0.0",
+  "author": "Jean Carlos",
+  "license": "ISC",
   "description": "",
+  "keywords": [],
   "main": "./dist/server.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon",
+    "build": "vercel build",
+    "start": "node ./dist/app.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
