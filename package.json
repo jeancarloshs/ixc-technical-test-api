@@ -9,7 +9,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon",
-    "build": "vercel build",
+    "build": "tsc",
     "start": "node ./dist/app.js"
   },
   "dependencies": {
