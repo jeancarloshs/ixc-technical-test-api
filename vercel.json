@@ -4,17 +4,17 @@
     "public": true,
     "builds": [
       {
-        "src": "src/**/*.ts",
+        "src": "dist/*.js",
         "use": "@vercel/node",
         "config": { 
-            "includeFiles": ["dist/**"] 
+            "includeFiles": ["./dist/**"] 
         }
       }
     ],
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "dist/app.js"
+        "dest": "dist/server.js"
       }
     ]
 }
